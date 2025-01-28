@@ -70,7 +70,7 @@ namespace TestSystemApp.Pages
                         TestDate = DateTime.Now,
                         StudentId = CurrentUser.User.RelatedId,
                         QuestionId = questions[i].QuestionId,
-                        Answer = givenAnswers[i], // Сохраняем ответ студента
+                        Answer = givenAnswers[i], 
                         TestDuration = 10,
                         TotalQuestions = totalQuestions,
                         CorrectAnswers = correctAnswers,
