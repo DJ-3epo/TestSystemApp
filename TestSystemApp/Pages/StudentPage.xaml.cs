@@ -5,8 +5,11 @@ using System.Windows.Controls;
 
 namespace TestSystemApp.Pages
 {
+
     public partial class StudentPage : Page
     {
+        private int[] givenAnswers;
+
         private int currentQuestionIndex = 0;
         private int correctAnswers = 0;
         private int totalQuestions = 0;
@@ -60,22 +63,29 @@ namespace TestSystemApp.Pages
         {
             using (Entities db = new Entities())
             {
-                var result = new TestingResults
+                for (int i = 0; i < questions.Length; i++)
                 {
-                    TestDate = DateTime.Now,
-                    StudentId = CurrentUser.User.RelatedId, 
-                    TotalQuestions = totalQuestions,
-                    CorrectAnswers = correctAnswers,
-                    Grade = (int)((double)correctAnswers / totalQuestions * 5),
-                    TestDuration = 10 
-                };
+                    var result = new TestingResults
+                    {
+                        TestDate = DateTime.Now,
+                        StudentId = CurrentUser.User.RelatedId,
+                        QuestionId = questions[i].QuestionId,
+                        Answer = givenAnswers[i], // Сохраняем ответ студента
+                        TestDuration = 10,
+                        TotalQuestions = totalQuestions,
+                        CorrectAnswers = correctAnswers,
+                        Grade = (int)((double)correctAnswers / totalQuestions * 5)
+                    };
 
-                db.TestingResults.Add(result);
+                    db.TestingResults.Add(result);
+                }
+
                 db.SaveChanges();
             }
         }
 
-        
+
+
         private void ButtonSubmitAnswer_Click(object sender, RoutedEventArgs e)
         {
             var selectedAnswer = new[] { RadioAnswer1, RadioAnswer2, RadioAnswer3, RadioAnswer4 }
@@ -89,6 +99,8 @@ namespace TestSystemApp.Pages
 
             int selectedAnswerIndex = Array.IndexOf(new[] { RadioAnswer1, RadioAnswer2, RadioAnswer3, RadioAnswer4 }, selectedAnswer) + 1;
 
+            givenAnswers[currentQuestionIndex] = selectedAnswerIndex; // Запоминаем ответ
+
             if (questions[currentQuestionIndex].CorrectAnswer == selectedAnswerIndex)
             {
                 correctAnswers++;
@@ -98,7 +110,8 @@ namespace TestSystemApp.Pages
             DisplayCurrentQuestion();
         }
 
-       
+
+
         private void LoadResults()
         {
             using (Entities db = new Entities())
