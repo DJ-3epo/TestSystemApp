@@ -1,17 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace TestSystemApp.Pages
 {
@@ -30,8 +19,10 @@ namespace TestSystemApp.Pages
 
         private void SaveButton_Click(object sender, RoutedEventArgs e)
         {
+            // Создаем новый вопрос
             var newQuestion = new Questions
             {
+                QuestionType = QuestionTypeTextBox.Text,  // Сохраняем тип вопроса
                 QuestionText = QuestionTextBox.Text,
                 Answer1 = Answer1TextBox.Text,
                 Answer2 = Answer2TextBox.Text,
@@ -39,20 +30,28 @@ namespace TestSystemApp.Pages
                 Answer4 = Answer4TextBox.Text
             };
 
-            // Попытка преобразования CorrectAnswer (например) из строки в число
+            // Попытка преобразования CorrectAnswer из строки в число
             if (int.TryParse(CorrectAnswerTextBox.Text, out int correctAnswer))
             {
                 newQuestion.CorrectAnswer = correctAnswer;
             }
             else
             {
-                MessageBox.Show("Incorrect format for Correct Answer. Please enter a valid number.");
-                return; // Прерываем выполнение, если ввод некорректен
+                MessageBox.Show("Некорректный формат для правильного ответа. Пожалуйста, введите число.");
+                return; // Прерываем выполнение, если формат некорректен
             }
 
-            _context.Questions.Add(newQuestion);
-            _context.SaveChanges();
-            MessageBox.Show("Question added successfully.");
+            try
+            {
+                // Добавляем вопрос в базу данных и сохраняем изменения
+                _context.Questions.Add(newQuestion);
+                _context.SaveChanges();
+                MessageBox.Show("Вопрос успешно добавлен.");
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Ошибка при сохранении: {ex.Message}");
+            }
         }
     }
 }

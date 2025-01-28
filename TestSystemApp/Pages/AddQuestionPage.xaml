@@ -4,13 +4,35 @@
       Title="Add Question Page">
 
     <Grid>
-        <TextBox x:Name="QuestionTextBox" Width="200" Height="25" Margin="10" />
-        <TextBox x:Name="Answer1TextBox" Width="200" Height="25" Margin="10,40,10,10" />
-        <TextBox x:Name="Answer2TextBox" Width="200" Height="25" Margin="10,70,10,10" />
-        <TextBox x:Name="Answer3TextBox" Width="200" Height="25" Margin="10,100,10,10" />
-        <TextBox x:Name="Answer4TextBox" Width="200" Height="25" Margin="10,130,10,10" />
-        <TextBox x:Name="CorrectAnswerTextBox" Width="200" Height="25" Margin="10,160,10,10" />
+        <!-- Label and TextBox for Question Type -->
+        <TextBlock Text="Тип вопроса" VerticalAlignment="Center" Margin="10,10,10,0"/>
+        <TextBox x:Name="QuestionTypeTextBox" Width="200" Height="25" Margin="10,30,10,0" />
 
-        <Button Content="Save" Width="75" Height="30" Margin="10,200,10,10" VerticalAlignment="Top" HorizontalAlignment="Left" Click="SaveButton_Click" />
+        <!-- Label and TextBox for Question -->
+        <TextBlock Text="Вопрос" VerticalAlignment="Center" Margin="10,60,10,0"/>
+        <TextBox x:Name="QuestionTextBox" Width="200" Height="25" Margin="10,80,10,0" />
+
+        <!-- Label and TextBox for Answer 1 -->
+        <TextBlock Text="Ответ 1" VerticalAlignment="Center" Margin="10,110,10,0"/>
+        <TextBox x:Name="Answer1TextBox" Width="200" Height="25" Margin="10,130,10,0" />
+
+        <!-- Label and TextBox for Answer 2 -->
+        <TextBlock Text="Ответ 2" VerticalAlignment="Center" Margin="10,160,10,0"/>
+        <TextBox x:Name="Answer2TextBox" Width="200" Height="25" Margin="10,180,10,0" />
+
+        <!-- Label and TextBox for Answer 3 -->
+        <TextBlock Text="Ответ 3" VerticalAlignment="Center" Margin="10,210,10,0"/>
+        <TextBox x:Name="Answer3TextBox" Width="200" Height="25" Margin="10,230,10,0" />
+
+        <!-- Label and TextBox for Answer 4 -->
+        <TextBlock Text="Ответ 4" VerticalAlignment="Center" Margin="10,260,10,0"/>
+        <TextBox x:Name="Answer4TextBox" Width="200" Height="25" Margin="10,280,10,0" />
+
+        <!-- Label and TextBox for Correct Answer -->
+        <TextBlock Text="Верный ответ (число от 1 до 4)" VerticalAlignment="Center" Margin="10,310,10,0"/>
+        <TextBox x:Name="CorrectAnswerTextBox" Width="200" Height="25" Margin="10,330,10,0" />
+
+        <!-- Save Button -->
+        <Button Content="Save" Width="75" Height="30" Margin="10,370,10,10" VerticalAlignment="Top" HorizontalAlignment="Left" Click="SaveButton_Click" />
     </Grid>
 </Page>

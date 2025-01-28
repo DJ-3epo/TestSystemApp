@@ -17,6 +17,7 @@ namespace TestSystemApp.Pages
             _question = question;
 
             // Заполнение полей существующими данными
+            QuestionTypeTextBox.Text = _question.QuestionType;
             QuestionTextBox.Text = _question.QuestionText;
             Answer1TextBox.Text = _question.Answer1;
             Answer2TextBox.Text = _question.Answer2;
@@ -30,6 +31,7 @@ namespace TestSystemApp.Pages
         private void SaveButton_Click(object sender, RoutedEventArgs e)
         {
             // Логика для редактирования вопроса
+            _question.QuestionType = QuestionTypeTextBox.Text;  // Сохраняем тип вопроса
             _question.QuestionText = QuestionTextBox.Text;
             _question.Answer1 = Answer1TextBox.Text;
             _question.Answer2 = Answer2TextBox.Text;
@@ -43,20 +45,21 @@ namespace TestSystemApp.Pages
             {
                 correctAnswer = result; // Если текст можно преобразовать в число, сохраняем его
             }
-            else
-            {
-                correctAnswer = null; // Если текст не является числом, оставляем null
-            }
 
             // Присваиваем преобразованное значение
             _question.CorrectAnswer = correctAnswer;
 
-            // Сохраняем изменения в базе данных
-            _context.SaveChanges();
-
-            // Уведомление о успешном обновлении вопроса
-            MessageBox.Show("Question updated successfully.");
+            try
+            {
+                // Сохраняем изменения в базе данных
+                _context.SaveChanges();
+                MessageBox.Show("Question updated successfully.");
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"An error occurred: {ex.Message}");
+            }
         }
-
     }
+
 }
